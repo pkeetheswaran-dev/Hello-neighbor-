@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hello Neighbor – Meet friends in your new country</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2fb;--ink:#0a0a0a;--muted:#4b5468;--card:#ffffff;--sun:#e11d2e;--green:#1746d1;--line:#c9d3ea;--err:#a8121e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0a;--ink:#f5f7ff;--muted:#a8b0c4;--card:#15171f;--line:#2a2f3d;--green:#3d6dff;--sun:#ff3b4a;--err:#ff7b85}}
+:root[data-theme="dark"]{--bg:#0a0a0a;--ink:#f5f7ff;--muted:#a8b0c4;--card:#15171f;--line:#2a2f3d;--green:#3d6dff;--sun:#ff3b4a;--err:#ff7b85}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.6 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.1;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font:800 1.3rem 'Bricolage Grotesque',sans-serif}
+.logo span{background:var(--sun);color:#fff;padding:0 8px;border-radius:8px;margin-right:4px}
+a.btn,button.btn{display:inline-block;background:var(--ink);color:var(--bg);font:700 1rem Nunito,sans-serif;padding:12px 22px;border-radius:999px;border:0;text-decoration:none;cursor:pointer}
+a.btn:hover,button.btn:hover{opacity:.9}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.hero{padding:40px 0 56px;text-align:left}
+.hello{font:800 clamp(3.2rem,14vw,7.5rem)/1 'Bricolage Grotesque',sans-serif;color:var(--green);min-height:1.1em;transition:opacity .35s}
+.hello.out{opacity:0}
+.hero h1{font-size:clamp(1.6rem,5vw,2.6rem);font-weight:600;max-width:20ch;margin:8px 0 16px}
+.hero p{max-width:52ch;color:var(--muted);margin:0 0 24px}
+.steps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));padding:0;list-style:none;margin:0 0 56px;counter-reset:s}
+.steps li{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sun);color:#fff;font:800 1rem 'Bricolage Grotesque';margin-bottom:10px}
+.steps h3{font-size:1.2rem;margin-bottom:6px}
+.steps p{margin:0;color:var(--muted)}
+.signup{display:grid;gap:32px;grid-template-columns:1fr;margin-bottom:56px}
+@media(min-width:800px){.signup{grid-template-columns:1fr 1.2fr}}
+.signup h2{font-size:clamp(1.8rem,5vw,2.4rem);margin-bottom:12px}
+.signup .side p{color:var(--muted)}
+form{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}
+label,legend{display:block;font-weight:700;margin:14px 0 4px}
+legend{padding:0}
+fieldset{border:0;margin:0;padding:0}
+input[type=text],input[type=email],input[type=password]{width:100%;font:inherit;padding:11px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+input:focus{border-color:var(--green);outline:none}
+.row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.tags label{margin:0;font-weight:600}
+.tags input{position:absolute;opacity:0}
+.tags span{display:inline-block;padding:6px 14px;border-radius:999px;border:2px solid var(--line);cursor:pointer;background:var(--bg)}
+.tags input:checked+span{background:var(--sun);border-color:var(--sun);color:#fff}
+.tags input:focus-visible+span{outline:3px solid var(--green)}
+.err{color:var(--err);font-size:.92rem;min-height:1.2em;margin:4px 0 0}
+form .btn{width:100%;margin-top:18px;background:var(--green);color:#fff}
+.small{font-size:.88rem;color:var(--muted);margin-top:12px}
+.welcome{background:var(--card);border:2px solid var(--green);border-radius:22px;padding:24px}
+.welcome h3{font-size:1.6rem;margin-bottom:8px}
+.members{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:16px 0 0;padding:0;list-style:none}
+.members li{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px}
+.members b{display:block}
+.members small{color:var(--muted)}
+.chip{display:inline-block;font-size:.8rem;background:var(--sun);color:#fff;border-radius:999px;padding:1px 10px;margin:6px 4px 0 0;font-weight:700}
+.sec{margin-bottom:56px}
+.sec h2{font-size:clamp(1.6rem,4vw,2.1rem);margin-bottom:6px}
+.sec>p{color:var(--muted);margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:.92rem}
+#app[hidden]{display:none}#app{display:flex;min-height:100vh;min-height:100dvh}
+.nav{width:220px;flex:none;background:var(--card);border-right:1px solid var(--line);padding:20px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px}
+.nav .logo{margin:0 8px 16px}
+.nav button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;padding:11px 14px;border-radius:12px;font-weight:700;color:var(--muted)}
+.nav button.on{background:var(--green);color:#fff}
+.nav button:hover:not(.on){background:var(--bg)}
+.nav button:focus-visible{outline:3px solid var(--sun)}
+#view{flex:1;min-width:0;padding:28px 24px 40px;max-width:1000px}
+#view h2{font-size:1.9rem;margin-bottom:4px}.mu{color:var(--muted);margin:0 0 14px}
+.fl{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.fl button{font:700 .95rem Nunito,sans-serif;padding:7px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.fl button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.ph{aspect-ratio:1;background:var(--bg)}.ph svg,.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pc .in{padding:14px;display:flex;flex-direction:column;gap:4px;flex:1}.pc small{color:var(--muted)}
+.pc .btn{margin-top:auto;padding:9px 14px;font-size:.95rem;width:100%;background:var(--sun);color:#fff}
+.chat{display:grid;grid-template-columns:260px 1fr;gap:16px;height:calc(100dvh - 150px);min-height:380px}
+.cl,.ct{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:auto}
+.ct{display:flex;flex-direction:column}
+.ci{display:flex;gap:10px;align-items:center;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--line)}.ci.on{background:var(--bg)}.ci small{display:block;color:var(--muted)}
+.th{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+.back{display:none;font-size:1.3rem;background:none;border:0;color:var(--ink);cursor:pointer}
+.msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:8px}
+.m{max-width:75%;padding:8px 14px;border-radius:16px;background:var(--bg)}.m.me{align-self:flex-end;background:var(--green);color:#fff}
+.ct form{border:0;border-radius:0;padding:10px;display:flex;gap:8px;border-top:1px solid var(--line);background:none}
+.ct form .btn{width:auto;margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;max-width:560px}
+.card .btn,.btn.alt{margin-top:14px;font-size:.95rem}.btn.alt{background:var(--sun);color:#fff}
+.card .btn.out{background:none;color:var(--ink);border:2px solid var(--line)}
+.pf{display:flex;gap:16px;align-items:center;margin-bottom:6px}.pf .ph{width:110px;height:110px;border-radius:50%;overflow:hidden;flex:none}
+select,textarea{width:100%;font:inherit;padding:11px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.tg{display:flex;gap:10px;align-items:center;font-weight:600;margin:12px 0}.tg input{width:20px;height:20px;accent-color:var(--green)}
+.ev{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:12px}
+.ev .btn{margin:0;padding:8px 18px}.ok{color:var(--green);font-weight:700}
+@media(max-width:720px){#app{display:block}.nav{position:fixed;bottom:0;left:0;right:0;top:auto;width:auto;height:auto;flex-direction:row;justify-content:space-around;border-right:0;border-top:1px solid var(--line);padding:6px 4px;z-index:20}.nav .logo{display:none}.nav button{flex-direction:column;gap:0;padding:6px 8px;font-size:.72rem}#view{padding:20px 16px 100px}.chat{grid-template-columns:1fr;height:calc(100dvh - 210px)}.chat.open .cl,.chat:not(.open) .ct{display:none}.back{display:block}}
+@media(prefers-reduced-motion:reduce){.hello{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo"><span>Hello</span>Neighbor</div>
+  <span><a href="#" id="loginLink" style="margin-right:14px;color:var(--ink);font-weight:700">Log in</a><a class="btn" href="#join">Join free</a></span>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hello" id="hello" aria-hidden="true">Hello</div>
+  <h1>New here? You don’t have to start from zero.</h1>
+  <p>Hello Neighbor connects people who recently moved to a new country with others who share their interests, languages and city. Make your first friend this week.</p>
+  <a class="btn" href="#join">Create my profile</a>
+</section>
+
+<ol class="steps">
+  <li><h3>Sign up</h3><p>Tell us where you’re from, where you live now and what you like.</p></li>
+  <li><h3>Get matched</h3><p>We show people nearby with the same interests or language.</p></li>
+  <li><h3>Meet up</h3><p>Start with a coffee, a walk or a game night. Easy and low pressure.</p></li>
+</ol>
+
+<section class="signup" id="join">
+  <div class="side">
+    <h2>Join the community</h2>
+    <p>It takes about a minute. Only your first name and city are shown to other members. Your email stays private.</p>
+  </div>
+  <div id="panel">
+  <form id="f" novalidate>
+    <label for="name">First name</label>
+    <input type="text" id="name" autocomplete="given-name">
+    <p class="err" id="e-name"></p>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" autocomplete="email">
+    <p class="err" id="e-email"></p>
+
+    <label for="pw">Password (at least 8 characters)</label>
+    <input type="password" id="pw" autocomplete="new-password">
+    <p class="err" id="e-pw"></p>
+
+    <div class="row">
+      <div><label for="from">I’m from</label><input type="text" id="from" placeholder="e.g. Brazil"></div>
+      <div><label for="city">I live in (city)</label><input type="text" id="city" placeholder="e.g. Toronto"></div>
+    </div>
+    <p class="err" id="e-loc"></p>
+
+    <fieldset>
+      <legend>I like</legend>
+      <div class="tags" id="tags"></div>
+    </fieldset>
+
+    <button class="btn" type="submit">Sign up</button>
+    <p class="small">School project demo: your info is saved only in this browser.</p>
+  </form>
+  </div>
+</section>
+
+<section class="sec">
+  <h2>People already here</h2>
+  <p>A few members who recently joined.</p>
+  <ul class="members" id="list"></ul>
+</section>
+</main>
+
+<footer>Hello Neighbor – a school project about helping newcomers feel at home.</footer>
+</div>
+
+<div id='app' hidden><nav class='nav' aria-label='Main'><div class='logo'><span>Hello</span>Neighbor</div><button data-v='home' onclick='go(this.dataset.v)'>🏠 <span>Home</span></button><button data-v='chats' onclick='go(this.dataset.v)'>💬 <span>Chats</span></button><button data-v='events' onclick='go(this.dataset.v)'>📅 <span>Events</span></button><button data-v='profile' onclick='go(this.dataset.v)'>👤 <span>Profile</span></button><button data-v='settings' onclick='go(this.dataset.v)'>⚙️ <span>Settings</span></button></nav><main id='view'></main></div>
+<script>
+const INTERESTS=['Food','Football','Music','Hiking','Games','Books','Movies','Language swap','Art','Study buddies'];
+const GREET=['Hello','Hola','Bonjour','你好','Salaam','Olá','Merhaba','Привет','Kumusta','नमस्ते'];
+const SEED=[
+ {name:'Amina',from:'Somalia',city:'Toronto',tags:['Food','Language swap','Books']},
+ {name:'Diego',from:'Mexico',city:'Toronto',tags:['Football','Music','Games']},
+ {name:'Mei',from:'China',city:'Vancouver',tags:['Art','Hiking','Study buddies']},
+ {name:'Lucas',from:'Brazil',city:'Toronto',tags:['Football','Food','Movies']}
+];
+const KEY='hn_members';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+function save(a){try{localStorage.setItem(KEY,JSON.stringify(a))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const $=id=>document.getElementById(id);
+
+// greeting cycle (the one moving piece)
+let gi=0;const h=$('hello');
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+ setInterval(()=>{h.classList.add('out');setTimeout(()=>{gi=(gi+1)%GREET.length;h.textContent=GREET[gi];h.classList.remove('out')},350)},2200);
+}
+
+$('tags').innerHTML=INTERESTS.map(t=>`<label><input type="checkbox" value="${t}"><span>${t}</span></label>`).join('');
+
+function card(m){return `<li><b>${esc(m.name)}</b><small>From ${esc(m.from)} · lives in ${esc(m.city)}</small><div>${m.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div></li>`}
+function renderList(){$('list').innerHTML=SEED.concat(load().map(m=>({name:m.name,from:m.from,city:m.city,tags:m.tags}))).map(card).join('')}
+renderList();
+
+function setErr(id,msg){$(id).textContent=msg||'';return !msg}
+
+$('f').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=$('name').value.trim(),email=$('email').value.trim().toLowerCase(),pw=$('pw').value,from=$('from').value.trim(),city=$('city').value.trim();
+ const tags=[...document.querySelectorAll('#tags input:checked')].map(i=>i.value);
+ const members=load();
+ let ok=true;
+ ok=setErr('e-name',name?'':'Enter your first name.')&&ok;
+ ok=setErr('e-email',!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?'Enter a valid email, like name@example.com.':(members.some(m=>m.email===email)?'This email is already signed up.':''))&&ok;
+ ok=setErr('e-pw',pw.length<8?'Use at least 8 characters.':'')&&ok;
+ ok=setErr('e-loc',from&&city?'':'Fill in where you are from and the city you live in.')&&ok;
+ if(!ok)return;
+ // Note: the password is never stored in this demo
+ members.push({name,email,from,city,tags,ph:hash(pw),bio:'',photo:''});save(members);setSession(email);enterApp();return;
+ save(members);
+ const matches=SEED.map(m=>({m,score:(m.city.toLowerCase()===city.toLowerCase()?2:0)+m.tags.filter(t=>tags.includes(t)).length+(m.from.toLowerCase()===from.toLowerCase()?2:0)}))
+   .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).map(x=>x.m);
+ $('panel').innerHTML=`<div class="welcome" role="status"><h3>Welcome, ${esc(name)}!</h3>
+  <p>You’re in. ${matches.length?'Here are people you might click with:':'No matches yet, but more people join every day. Check back soon.'}</p>
+  ${matches.length?`<ul class="members">${matches.map(card).join('')}</ul>`:''}</div>`;
+ renderList();
+ $('panel').scrollIntoView({behavior:'smooth',block:'center'});
+});
+</script>
+<script>
+function hash(s){let h=5381;for(const c of s)h=((h<<5)+h+c.charCodeAt(0))|0;return String(h)}
+const SK='hn_session',CK='hn_chats',SETK='hn_settings',EK='hn_events',DEF={theme:'auto',notif:true,showCity:true};
+function rd(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}}
+function wr(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function setSession(e){wr(SK,e)}
+const PEOPLE=[
+{id:'p1',name:'Amina',from:'Somalia',city:'Toronto',tags:['Food','Language swap','Books'],look:['#cfe0ff','#8d5a3b','#1b1008',1,'#e11d2e']},
+{id:'p2',name:'Diego',from:'Mexico',city:'Toronto',tags:['Football','Music','Games'],look:['#ffd6d9','#c68a5e','#1b1008',0,'#1746d1']},
+{id:'p3',name:'Mei',from:'China',city:'Vancouver',tags:['Art','Hiking','Study buddies'],look:['#dbe6ff','#f0c9a3','#0a0a0a',2,'#0a0a0a']},
+{id:'p4',name:'Lucas',from:'Brazil',city:'Toronto',tags:['Football','Food','Movies'],look:['#ffe0e2','#a8714a','#3a2312',0,'#e11d2e']},
+{id:'p5',name:'Priya',from:'India',city:'Montreal',tags:['Music','Books','Art'],look:['#cfe0ff','#b9794f','#0a0a0a',1,'#1746d1']},
+{id:'p6',name:'Omar',from:'Syria',city:'Toronto',tags:['Games','Food','Language swap'],look:['#ffd6d9','#d9a47c','#0a0a0a',0,'#0a0a0a']},
+{id:'p7',name:'Sofia',from:'Mexico',city:'Montreal',tags:['Hiking','Movies','Food'],look:['#dbe6ff','#e0b08a','#5a3418',2,'#e11d2e']},
+{id:'p8',name:'Kwame',from:'Ghana',city:'Vancouver',tags:['Football','Music','Study buddies'],look:['#ffe0e2','#6b4128','#0a0a0a',0,'#1746d1']}];
+const EVENTS=[{id:'e1',t:'Coffee & chat',d:'Saturday, 11:00',p:'Central Café'},{id:'e2',t:'Newcomer soccer',d:'Sunday, 15:00',p:'City Park'},{id:'e3',t:'Language swap night',d:'Wednesday, 18:30',p:'Public Library'},{id:'e4',t:'Welcome picnic',d:'Next Saturday, 13:00',p:'Riverside Park'}];
+const REPLIES=['Hey! Nice to meet you 😊','I’d love to! What day works for you?','Where are you from? I moved here a few months ago.','That sounds great! Coffee this weekend?'];
+let view='home',filt='all',active=null;
+function avatar(l,s){const[bg,sk,hr,st,sh]=l;return `<svg viewBox='0 0 100 100' ${s?`style='width:${s}px;height:${s}px;border-radius:50%'`:''} role='img' aria-label='Profile picture'><rect width='100' height='100' fill='${bg}'/>${st==1?`<rect x='26' y='24' width='48' height='56' rx='22' fill='${hr}'/>`:''}${st==2?`<circle cx='50' cy='18' r='10' fill='${hr}'/>`:''}<path d='M12 100c2-20 16-28 38-28s36 8 38 28z' fill='${sh}'/><rect x='43' y='58' width='14' height='18' fill='${sk}'/><circle cx='50' cy='46' r='20' fill='${sk}'/><path d='M30 46c-2-18 8-26 20-26s22 8 20 26c-4-8-10-12-20-12s-16 4-20 12z' fill='${hr}'/><circle cx='43' cy='48' r='2' fill='#222'/><circle cx='57' cy='48' r='2' fill='#222'/><path d='M43 56q7 6 14 0' stroke='#222' stroke-width='2' fill='none'/></svg>`}
+function pic(p,s){return p.photo?`<img src='${p.photo}' alt='Profile picture' ${s?`style='width:${s}px;height:${s}px;border-radius:50%'`:''}>`:avatar(p.look||['#cfe0ff','#e8b98f','#2b1b10',0,'#1746d1'],s)}
+function me(){const e=rd(SK,null);return load().find(m=>m.email===e)}
+function upd(patch){const a=load(),i=a.findIndex(m=>m.email===rd(SK,null));if(i>-1){Object.assign(a[i],patch);save(a)}}
+function applyTheme(){const t=rd(SETK,DEF).theme,r=document.documentElement;t=='auto'?r.removeAttribute('data-theme'):r.setAttribute('data-theme',t)}
+function enterApp(){document.querySelector('.wrap').hidden=true;$('app').hidden=false;applyTheme();view='home';active=null;render();scrollTo(0,0)}
+function go(v){view=v;if(v!='chats')active=null;render();scrollTo(0,0)}
+function setF(k){filt=k;render()}
+function render(){document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('on',b.dataset.v==view));$('view').innerHTML=({home,chats,events,profile,settings})[view]();const m=$('msgs');if(m)m.scrollTop=m.scrollHeight}
+function score(p,m){return(p.city.toLowerCase()==m.city.toLowerCase()?2:0)+(p.from.toLowerCase()==m.from.toLowerCase()?2:0)+p.tags.filter(t=>m.tags.includes(t)).length}
+function home(){const m=me();const l=PEOPLE.filter(p=>filt=='city'?p.city.toLowerCase()==m.city.toLowerCase():filt=='from'?p.from.toLowerCase()==m.from.toLowerCase():filt=='tags'?p.tags.some(t=>m.tags.includes(t)):true).sort((a,b)=>score(b,m)-score(a,m));
+return `<h2>Hi ${esc(m.name)}, meet someone new</h2><p class='mu'>People who recently moved and want to make friends.</p><div class='fl'>${[['all','Everyone'],['city','My city'],['from','My country'],['tags','Shared interests']].map(([k,n])=>`<button class='${filt==k?'on':''}' data-k='${k}' onclick='setF(this.dataset.k)'>${n}</button>`).join('')}</div><div class='grid'>${l.map(p=>`<div class='pc'><div class='ph'>${pic(p)}</div><div class='in'><b>${esc(p.name)}</b><small>From ${esc(p.from)} · ${esc(p.city)}</small><div>${p.tags.slice(0,3).map(t=>`<span class='chip'>${esc(t)}</span>`).join('')}</div><button class='btn' data-id='${p.id}' onclick='openChat(this.dataset.id)'>Say hi</button></div></div>`).join('')||'<p>No one matches yet. Try Everyone.</p>'}</div>`}
+function openChat(id){active=id;view='chats';render()}
+function chats(){const c=rd(CK,{}),ids=Object.keys(c).filter(k=>c[k].length);
+const list=ids.map(id=>{const p=PEOPLE.find(x=>x.id==id),l=c[id][c[id].length-1];return `<div class='ci ${active==id?'on':''}' data-id='${id}' onclick='openChat(this.dataset.id)'>${pic(p,40)}<div><b>${esc(p.name)}</b><small>${esc(l.t.slice(0,26))}</small></div></div>`}).join('')||`<p class='mu' style='padding:14px'>No chats yet. Tap Say hi on the Home page.</p>`;
+let th=`<p class='mu' style='margin:auto'>Pick a chat</p>`;
+if(active){const p=PEOPLE.find(x=>x.id==active),ms=c[active]||[];th=`<div class='th'><button class='back' onclick='active=null;render()' aria-label='Back'>←</button>${pic(p,36)}<b>${esc(p.name)}</b></div><div class='msgs' id='msgs'>${ms.map(x=>`<div class='m ${x.me?'me':''}'>${esc(x.t)}</div>`).join('')||`<p class='mu'>Start the conversation with ${esc(p.name)}.</p>`}</div><form onsubmit='send(event)'><input type='text' id='mi' autocomplete='off' aria-label='Message' value='${ms.length?'':'Hi '+esc(p.name)+'! I’m new here too. Want to meet up?'}'><button class='btn' type='submit'>Send</button></form>`}
+return `<h2>Chats</h2><div class='chat ${active?'open':''}'><div class='cl'>${list}</div><div class='ct'>${th}</div></div>`}
+function send(e){e.preventDefault();const t=$('mi').value.trim();if(!t)return;const id=active,c=rd(CK,{});(c[id]=c[id]||[]).push({me:1,t});wr(CK,c);render();$('mi').focus();
+setTimeout(()=>{const c2=rd(CK,{});c2[id].push({t:REPLIES[Math.floor(Math.random()*REPLIES.length)]});wr(CK,c2);if(view=='chats'&&active==id){render()}},1400)}
+function events(){const j=rd(EK,[]),m=me();return `<h2>Events</h2><p class='mu'>Meetups for newcomers in ${esc(m.city)}.</p>${EVENTS.map(x=>`<div class='ev'><div><b>${x.t}</b><br><small>${x.d} · ${x.p}</small></div><button class='btn ${j.includes(x.id)?'alt':''}' data-id='${x.id}' onclick='joinEv(this.dataset.id)'>${j.includes(x.id)?'Joined ✓':'Join'}</button></div>`).join('')}`}
+function joinEv(id){let j=rd(EK,[]);j=j.includes(id)?j.filter(x=>x!=id):j.concat(id);wr(EK,j);render()}
+function profile(){const m=me();return `<h2>My profile</h2><p class='mu'>This is what other members see.</p><div class='card'><div class='pf'><div class='ph'>${pic(m)}</div><label class='btn alt' style='cursor:pointer;margin:0'>Change photo<input type='file' accept='image/*' hidden onchange='photo(this)'></label></div>
+<label for='pn'>First name</label><input type='text' id='pn' value='${esc(m.name)}'><label for='pf'>I’m from</label><input type='text' id='pf' value='${esc(m.from)}'><label for='pc'>City</label><input type='text' id='pc' value='${esc(m.city)}'><label for='pb'>About me</label><textarea id='pb' rows='3' placeholder='Say a bit about yourself'>${esc(m.bio||'')}</textarea>
+<fieldset><legend>I like</legend><div class='tags' id='ptags'>${INTERESTS.map(t=>`<label><input type='checkbox' value='${t}' ${m.tags.includes(t)?'checked':''}><span>${t}</span></label>`).join('')}</div></fieldset><button class='btn' onclick='saveProfile()'>Save changes</button> <span class='ok' id='ok'></span></div>`}
+function saveProfile(){upd({name:$('pn').value.trim()||'Friend',from:$('pf').value.trim(),city:$('pc').value.trim(),bio:$('pb').value.trim(),tags:[...document.querySelectorAll('#ptags input:checked')].map(i=>i.value)});$('ok').textContent='Saved ✓'}
+function photo(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=240;const s=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,240,240);upd({photo:c.toDataURL('image/jpeg',.8)});render()};im.src=r.result};r.readAsDataURL(f)}
+function settings(){const s=rd(SETK,DEF);return `<h2>Settings</h2><div class='card'><label for='th'>Appearance</label><select id='th' onchange="setS('theme',this.value)">${[['auto','Match my phone'],['light','Light'],['dark','Dark']].map(([v,n])=>`<option value='${v}' ${s.theme==v?'selected':''}>${n}</option>`).join('')}</select>
+<label class='tg'><input type='checkbox' ${s.notif?'checked':''} onchange="setS('notif',this.checked)"> Message notifications</label><label class='tg'><input type='checkbox' ${s.showCity?'checked':''} onchange="setS('showCity',this.checked)"> Show my city on my profile</label>
+<p class='small'>Signed in as ${esc(me().email)}</p><button class='btn out' onclick='logout()'>Log out</button> <button class='btn out' onclick='delAcc(this)'>Delete account</button></div>`}
+function setS(k,v){const s=rd(SETK,DEF);s[k]=v;wr(SETK,s);applyTheme()}
+function logout(){wr(SK,null);location.reload()}
+function delAcc(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Tap again to delete everything';return}const e=rd(SK,null);save(load().filter(m=>m.email!==e));wr(CK,{});wr(EK,[]);logout()}
+$('loginLink').onclick=e=>{e.preventDefault();$('panel').innerHTML=`<form id='lf' novalidate><h3 style='margin-bottom:6px'>Log in</h3><label for='le'>Email</label><input type='email' id='le'><label for='lp'>Password</label><input type='password' id='lp'><p class='err' id='e-l'></p><button class='btn' type='submit'>Log in</button><p class='small'><a href='#' onclick='location.reload();return false'>New here? Sign up</a></p></form>`;$('lf').onsubmit=ev=>{ev.preventDefault();const m=load().find(x=>x.email===$('le').value.trim().toLowerCase()&&x.ph===hash($('lp').value));if(!m){$('e-l').textContent='Email or password is wrong.';return}setSession(m.email);enterApp()};$('join').scrollIntoView({behavior:'smooth'})};
+applyTheme();const sess=rd(SK,null);if(sess&&load().some(m=>m.email===sess))enterApp();
+</script>
+</body>
+</html>
